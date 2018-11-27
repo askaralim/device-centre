@@ -1,0 +1,13 @@
+*.DS_Store
+target
+src/main/webapp/META-INF
+src/main/webapp/uploads
+src/main/webapp/upload
+src/main/resources/yoda.properties
+src/main/resources/log4j.properties
+.classpath
+.project
+.settings
+*.iml
+*.idea
+AwsCredentials.properties
