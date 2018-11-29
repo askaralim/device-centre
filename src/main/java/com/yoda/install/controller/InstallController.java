@@ -102,7 +102,7 @@ public class InstallController {
 			errorInfo = errorInfo.replaceAll("\n", "<br>");
 
 			command.setDetailLog(
-				command.getDetailLog()+ "<br>" + errorInfo);
+				command.getDetailLog() + "<br>" + errorInfo);
 
 			return "/install/form";
 		}
@@ -116,8 +116,8 @@ public class InstallController {
 
 			Vector<String> ddl = prepareSchema(connection);
 
-			loadCreate(connection, ddl, command);
-			loadData(connection, command);
+//			loadCreate(connection, ddl, command);
+//			loadData(connection, command);
 			loadIndex(connection, ddl, command);
 
 			Installer.setInstallCompleted();

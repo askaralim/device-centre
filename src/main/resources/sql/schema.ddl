@@ -88,6 +88,36 @@
 
     drop table if exists user_site;
 
+	CREATE TABLE brand (
+		brand_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		country varchar(30),
+		company VARCHAR(30),
+		name VARCHAR(30),
+		description VARCHAR(2000),
+		found_date DATETIME,
+		kind VARCHAR(30),
+		image_path VARCHAR(50),
+		hit_counter INT,
+		score INT,
+		create_by bigint NOT NULL,
+		create_date DATETIME NOT NULL,
+		update_by bigint NOT NULL,
+		update_date DATETIME NOT NULL,
+		INDEX(name)
+	) engine=InnoDB;
+
+    create table category (
+        category_id INT not null AUTO_INCREMENT,
+        name varchar(50) not null,
+        parent INT not null comment '',
+        description text not null comment '',
+        update_by bigint not null comment '',
+        update_date datetime not null comment '',
+        create_by bigint not null comment '',
+        create_date datetime not null comment '',
+        primary key (category_id)
+    ) comment='';
+
     create table contact_us (
         contact_us_id INT(4) not null AUTO_INCREMENT,
         site_id INT(4) not null,
@@ -180,24 +210,6 @@
 		FOREIGN KEY (brand_id) REFERENCES brand(brand_id)
 	) engine=InnoDB;
 
-	CREATE TABLE brand (
-		brand_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		country varchar(30),
-		company VARCHAR(30),
-		name VARCHAR(30),
-		description VARCHAR(2000),
-		found_date DATETIME,
-		kind VARCHAR(30),
-		image_path VARCHAR(50),
-		hit_counter INT,
-		score INT,
-		create_by bigint NOT NULL,
-		create_date DATETIME NOT NULL,
-		update_by bigint NOT NULL,
-		update_date DATETIME NOT NULL,
-		INDEX(name)
-	) engine=InnoDB;
-
 	create table content_brand (
 		content_brand_id bigint not null AUTO_INCREMENT PRIMARY KEY,
 		content_id bigint not null,
@@ -247,26 +259,14 @@
     ) comment='';
 
 	create table country (
-		country_id int not null AUTO_INCREMENT PRIMARY KEY,,
+		country_id int not null AUTO_INCREMENT PRIMARY KEY,
 		country_name varchar(40) not null comment '',
 		create_by varchar(20) not null comment '',
 		create_date datetime not null comment '',
 		site_id int not null,
 		update_by varchar(20) not null comment '',
-		update_date datetime not null comment '',
+		update_date datetime not null comment ''
 	);
-
-    create table category (
-        category_id INT not null AUTO_INCREMENT,
-        name varchar(50) not null,
-        parent INT not null comment '',
-        description text not null comment '',
-        update_by bigint not null comment '',
-        update_date datetime not null comment '',
-        create_by bigint not null comment '',
-        create_date datetime not null comment '',
-        primary key (category_id)
-    ) comment='';
 
     create table feedback (
         id bigint not null AUTO_INCREMENT,
@@ -359,7 +359,7 @@
 		create_date DATETIME NOT NULL,
 		update_by bigint NOT NULL,
 		update_date DATETIME NOT NULL,
-		description VARCHAR(2000),
+		description VARCHAR(2000)
 	) engine=InnoDB;
 
     create table section (
@@ -430,9 +430,9 @@
 
     create table user_ (
         user_id bigint not null AUTO_INCREMENT,
-        account_non_expired BOOLEAN NOT NULL;
-        account_non_locked BOOLEAN NOT NULL;
-        credentials_non_expired BOOLEAN NOT NULL;
+        account_non_expired BOOLEAN NOT NULL,
+        account_non_locked BOOLEAN NOT NULL,
+        credentials_non_expired BOOLEAN NOT NULL,
         address_line1 varchar(30) not null comment '',
         address_line2 varchar(30) not null comment '',
         username varchar(50) not null comment '',
@@ -472,10 +472,7 @@
 		id bigint not null AUTO_INCREMENT,
 		user_id bigint not null,
 		authority_name varchar(50) not null,
-		primary key (id),
-		/*!UNIQUE KEY uni_user_id_authority (authority_name,user_id),*/
-		/*!KEY fk_user_id_idx (user_id),*/
-		/*!constraint fk_authority_users foreign key(user_id) references user_(user_id)*/
+		primary key (id)
 	);
 
     create table user_site (
@@ -485,12 +482,6 @@
     );
 
     create index content_natural_key on content (natural_key);
-
-    alter table content 
-        add index FK38B734792298136A (image_id), 
-        add constraint FK38B734792298136A 
-        foreign key (image_id) 
-        references content_image (image_id);
 
     alter table content 
         add index FK38B7347966D33571 (section_id), 
